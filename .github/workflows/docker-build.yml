@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [main, feature/docker-setup]
+    branches: [main, dockerr]
   pull_request:
 
 jobs:
@@ -26,4 +26,3 @@ jobs:
         context: .
         push: true
         tags: ghcr.io/2tbofsmth/lb2:latest
-
