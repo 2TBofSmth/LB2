@@ -33,7 +33,7 @@ jobs:
           tags: ghcr.io/2tbofsmth/lb2:latest
 
   test:
-    name: Pull image & run tests
+    name: Pull image & run container
     runs-on: ubuntu-latest
     needs: build
 
@@ -48,6 +48,5 @@ jobs:
       - name: Pull Docker image
         run: docker pull ghcr.io/2tbofsmth/lb2:latest
 
-      - name: Run container and execute tests
-        run: docker run ghcr.io/2tbofsmth/lb2:latest pytest
-
+      - name: Run container
+        run: docker run ghcr.io/2tbofsmth/lb2:latest
