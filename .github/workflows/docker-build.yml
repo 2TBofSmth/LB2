@@ -1,4 +1,4 @@
-name: Build
+name: Build and Test
 
 on:
   push:
@@ -24,6 +24,33 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/2tbofsmth/lb2:latest
+
+  test:
+    name: Pull image & run tests
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Pull Docker image
+        run: docker pull ghcr.io/2tbofsmth/lb2:latest
+
+      - name: Run container and execute tests
+        run: docker run ghcr.io/2tbofsmth/lb2:latest <команда_для_тестов>
+
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
