@@ -48,9 +48,6 @@ jobs:
       - name: Pull Docker image
         run: docker pull ghcr.io/2tbofsmth/lb2:latest
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ghcr.io/2tbofsmth/lb2:latest
+      - name: Run container and execute tests
+        run: docker run ghcr.io/2tbofsmth/lb2:latest pytest
+
